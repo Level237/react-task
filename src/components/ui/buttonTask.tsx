@@ -11,7 +11,7 @@ import {
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { Plus } from "lucide-react"
-import AddTaskForm from "../forms/AddTaskForm"
+import AddTaskForm from "../Task/AddTaskForm"
 
 export default function ButtonTask() {
   return (

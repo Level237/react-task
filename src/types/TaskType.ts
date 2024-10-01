@@ -3,5 +3,6 @@ export type TaskType={
     title:string,
     description:string,
     priority:number,
-    date:string
+    date:string,
+    status:number
 }

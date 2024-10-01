@@ -1,11 +1,8 @@
 import {
-    Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
   } from "../ui/dialog"
   import {
     Select,
@@ -16,22 +13,59 @@ import {
     SelectTrigger,
     SelectValue,
   } from "../ui/select"
-  import { Input } from "../../components/ui/input"
-  import { Label } from "../../components/ui/label"
+  import { Input } from "../ui/input"
+  import { Label } from "../ui/label"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
 import { DatePickerDemo } from "../ui/date"
+import useForm from "../../hooks/use-form"
 
 export default function AddTaskForm() {
+
+  const {
+    value:enterTitle,
+    hasError:titleError,
+    valueHandler:enteredTitleHandler,
+    blurHandler:blurTitleHandler,
+    reset:resetTitle,
+    valueIsValid:titleIsvalid
+  }=useForm((value:any)=>value.trim()!=="")
+
+  const {
+    value:enterDescription,
+    hasError:descriptionError,
+    valueHandler:enteredDescriptionHandler,
+    blurHandler:blurDescriptionHandler,
+    reset:resetDescription,
+    valueIsValid:descriptionIsvalid
+  }=useForm((value:any)=>value.trim()!=="")
+
+
+  const submitFormHandler=(event:any)=>{
+    event.preventDefault()
+    if(!titleIsvalid && !descriptionIsvalid){
+      return;
+    }
+    resetTitle()
+    resetDescription()
+  }
+  
+  let formIsValid=false;
+
+  if(titleIsvalid && descriptionIsvalid){
+    formIsValid=true;
+  }
+
+  const validClassTitle=titleError ? "border border-red-400" : ""
+
   return (
     <>
-      <DialogContent className="sm:max-w-[469px]">
+      <DialogContent className="sm:max-w-[480px]">
         <DialogHeader>
           <DialogTitle>Add Task</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+         
         </DialogHeader>
+        <form onSubmit={submitFormHandler}>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col gap-4">
             <Label htmlFor="name" className="">
@@ -39,20 +73,28 @@ export default function AddTaskForm() {
             </Label>
             <Input
               id="name"
+              onBlur={blurTitleHandler} 
+              onChange={enteredTitleHandler} 
+              value={enterTitle} 
               placeholder="Enter your title"
-              className="col-span-3"
+              className={`col-span-3 ${validClassTitle}`}
             />
+            {titleError && <p className="text-xs mt-[-10px] text-red-600">Ne peut pas etre vide</p>}
           </div>
          
           <div className="flex flex-col gap-4">
             <Label htmlFor="username" className="">
               Description
             </Label>
-            <Textarea className="w-full" placeholder="Type your message here." />
+            <Textarea className="w-full" placeholder="Type your message here."
+            onBlur={blurDescriptionHandler} 
+            onChange={enteredDescriptionHandler} 
+            value={enterDescription} 
+            />
           </div>
           <div className="flex flex-col gap-4">
-            <div className="flex gap-3 items-center justify-between">
-                    <div className="flex-1">
+            <div className="flex mt-3 gap-3 items-center justify-between">
+                    <div className="flex-1 flex flex-col gap-3">
                     <Label htmlFor="username" className="">
               Priority
             </Label>
@@ -69,7 +111,7 @@ export default function AddTaskForm() {
       </SelectContent>
     </Select>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 flex flex-col gap-3">
                     <Label htmlFor="name" className="">
               Select a date
             </Label>
@@ -82,6 +124,7 @@ export default function AddTaskForm() {
         <DialogFooter>
           <Button type="submit">Save changes</Button>
         </DialogFooter>
+        </form>
       </DialogContent>
     </>
   )
