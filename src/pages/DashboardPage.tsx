@@ -2,6 +2,9 @@ import React from 'react'
 import Sidebar from '../components/Sidebar'
 import NavBar from '../components/NavBar'
 import { Separator } from '../components/ui/separator'
+import ListBoard from '../components/ListBoard'
+import { Button } from '../components/ui/button'
+import { Filter, Plus } from 'lucide-react'
 
 export default function DashboardPage() {
   return (
@@ -20,9 +23,12 @@ export default function DashboardPage() {
            
            <div className="flex items-center flex-1 flex-row justify-between">
             <h2 className='text-black text-lg font-bold'>Board</h2>
+            <ListBoard/>
            </div>
-            <div>
-
+            <div className='flex gap-2 items-center w-64'>
+            <Separator className='mr-3' orientation="vertical" />
+            <Button className='flex gap-1 items-center' variant="outline"><Filter className='w-4 h-4'/>Filters</Button>
+            <Button className='flex gap-1 items-center' variant="default"><Plus className='w-4 h-4'/>Create Task</Button>
             </div>
          </div>
     
