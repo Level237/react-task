@@ -57,7 +57,7 @@ export default function AddTaskForm() {
   }
 
   const validClassTitle=titleError ? "border border-red-400" : ""
-
+  const validClassDescription=descriptionError ? "border border-red-400" : ""
   return (
     <>
       <DialogContent className="sm:max-w-[480px]">
@@ -86,11 +86,12 @@ export default function AddTaskForm() {
             <Label htmlFor="username" className="">
               Description
             </Label>
-            <Textarea className="w-full" placeholder="Type your message here."
+            <Textarea className={`w-full ${validClassDescription}`} placeholder="Type your message here."
             onBlur={blurDescriptionHandler} 
             onChange={enteredDescriptionHandler} 
             value={enterDescription} 
             />
+            {descriptionError && <p className="text-xs mt-[-10px] text-red-600">Ne peut pas etre vide</p>}
           </div>
           <div className="flex flex-col gap-4">
             <div className="flex mt-3 gap-3 items-center justify-between">
