@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "../components/ui/card"
 import { CardTask } from '../components/ui/cardTask'
+import ButtonTask from '../components/ui/buttonTask'
 export default function DashboardPage() {
   return (
     <>
@@ -36,7 +37,7 @@ export default function DashboardPage() {
             <div className='flex gap-2 items-center w-64'>
             <Separator className='mr-3' orientation="vertical" />
             <Button className='flex gap-1 items-center' variant="outline"><Filter className='w-4 h-4'/>Filters</Button>
-            <Button className='flex gap-1 items-center' variant="default"><Plus className='w-4 h-4'/>Create Task</Button>
+            <ButtonTask/>
             </div>
          </div>
     
