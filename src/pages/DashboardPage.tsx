@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card"
+import { CardTask } from '../components/ui/cardTask'
 export default function DashboardPage() {
   return (
     <>
@@ -49,48 +50,22 @@ export default function DashboardPage() {
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-3'>
-      <div className='w-full flex flex-col  rounded-md px-3 py-4 bg-[#1271ff41]'>
-        <div className='flex mb-3 items-center justify-between'>
-            <div className='px-2 rounded-lg  bg-[#1271ff]'>
-                <h2 className='text-xs text-white'>Urgent</h2>
-                
-            </div>
-            <div>
-            <MoreHorizontal className='w-4 h-4 text-[#1271ff]'/>
-            </div>
-        </div>
-    <h2 className='text-lg text-[#1271ff] font-bold'>Move down</h2>
-    <div>
-        <span className='text-[#1271ff] line-clamp-3 mt-2 text-xs'>Manage men sevent game,let me down,let me see you please</span>
-        </div>
-        <div className='flex justify-end mt-3'>
-        <div className='px-2 rounded-lg border border-[#1271ff]  bg-transparent'>
-                <h2 className='text-xs text-[#1271ff]'>12 oct 2024</h2>
-                
-            </div>
-        </div>
-        </div>
-        <div className='w-full flex flex-col  rounded-md px-3 py-4 bg-[#1271ff41]'>
-        <div className='flex mb-3 items-center justify-between'>
-            <div className='px-2 rounded-lg  bg-[#1271ff]'>
-                <h2 className='text-xs text-white'>Urgent</h2>
-                
-            </div>
-            <div>
-            <MoreHorizontal className='w-4 h-4 text-[#1271ff]'/>
-            </div>
-        </div>
-    <h2 className='text-lg text-[#1271ff] font-bold'>Move down</h2>
-    <div>
-        <span className='text-[#1271ff] line-clamp-3 mt-2 text-xs'>Manage men sevent game,let me down,let me see you please</span>
-        </div>
-        <div className='flex justify-end mt-3'>
-        <div className='px-2 rounded-lg border border-[#1271ff]  bg-transparent'>
-                <h2 className='text-xs text-[#1271ff]'>12 oct 2024</h2>
-                
-            </div>
-        </div>
-        </div>
+
+        <CardTask bgTask='#1271ff41' 
+        title='Move down'
+        color="#1271ff" 
+        content='Manage men sevent game,let me down,let me see you please'
+        status='urgent'
+
+        />
+      
+      <CardTask bgTask='#1271ff41' 
+        title='Move down'
+        color="#1271ff" 
+        content='Manage men sevent game,let me down,let me see you please'
+        status='urgent'
+
+        />
 
       </CardContent>
       <CardFooter className="flex justify-between">
@@ -105,48 +80,20 @@ export default function DashboardPage() {
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-3'>
-      <div className='w-full flex flex-col  rounded-md px-3 py-4 bg-[#d7790660]'>
-        <div className='flex mb-3 items-center justify-between'>
-            <div className='px-2 rounded-lg  bg-[#d77906]'>
-                <h2 className='text-xs text-white'>Urgent</h2>
-                
-            </div>
-            <div>
-            <MoreHorizontal className='w-4 h-4 text-[#d77906]'/>
-            </div>
-        </div>
-    <h2 className='text-lg text-[#d77906] font-bold'>Move down</h2>
-    <div>
-        <span className='text-[#d77906] line-clamp-3 mt-2 text-xs'>Manage men sevent game,let me down,let me see you please</span>
-        </div>
-        <div className='flex justify-end mt-3'>
-        <div className='px-2 rounded-lg border border-[#d77906]  bg-transparent'>
-                <h2 className='text-xs text-[#d77906]'>12 oct 2024</h2>
-                
-            </div>
-        </div>
-        </div>
-        <div className='w-full flex flex-col  rounded-md px-3 py-4 bg-[#1271ff41]'>
-        <div className='flex mb-3 items-center justify-between'>
-            <div className='px-2 rounded-lg  bg-[#1271ff]'>
-                <h2 className='text-xs text-white'>Urgent</h2>
-                
-            </div>
-            <div>
-            <MoreHorizontal className='w-4 h-4 text-[#1271ff]'/>
-            </div>
-        </div>
-    <h2 className='text-lg text-[#1271ff] font-bold'>Move down</h2>
-    <div>
-        <span className='text-[#1271ff] line-clamp-3 mt-2 text-xs'>Manage men sevent game,let me down,let me see you please</span>
-        </div>
-        <div className='flex justify-end mt-3'>
-        <div className='px-2 rounded-lg border border-[#1271ff]  bg-transparent'>
-                <h2 className='text-xs text-[#1271ff]'>12 oct 2024</h2>
-                
-            </div>
-        </div>
-        </div>
+      <CardTask bgTask='#d7790660' 
+        title='Move down'
+        color="#d77906" 
+        content='Manage men sevent game,let me down,let me see you please'
+        status='urgent'
+
+        />
+        <CardTask bgTask='#11111179' 
+        title='Move down'
+        color="#d77906" 
+        content='Manage men sevent game,let me down,let me see you please'
+        status='urgent'
+
+        />
         
       </CardContent>
       <CardFooter className="flex justify-between">
