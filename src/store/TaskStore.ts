@@ -26,7 +26,9 @@ export const TaskStore=create<TaskInterface>((set)=>({
     updateTask:()=>{
 
     },
-    deleteTask:()=>{
-
+    deleteTask:(id:string)=>{
+      set((state) => ({
+        tasks: state.tasks.filter((todo) => todo.id !== id),
+      }));
     }
 }))

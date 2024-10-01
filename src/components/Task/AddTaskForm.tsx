@@ -12,17 +12,17 @@ import { Textarea } from "../ui/textarea"
 import { DatePickerDemo } from "../ui/date"
 import useForm from "../../hooks/use-form"
 import { convertDateToString } from "../../lib/convertDate"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { TaskStore } from "../../store/TaskStore"
+import { useNavigate, useNavigation } from "react-router-dom"
 
 export default function AddTaskForm() {
 
   const addTask=TaskStore((state)=>state.addTask)
-  const tasks=TaskStore((state)=>state.tasks)
-
-  useEffect(()=>{
-    console.log(tasks)
-  },[tasks])
+  const navigate = useNavigate();
+  const navigation=useNavigation();
+  const isSubmitting=navigation.state==="submitting"
+ 
   const [date,setDate]=useState("")
   const {
     value:enterTitle,
@@ -65,6 +65,7 @@ export default function AddTaskForm() {
       return;
     }
     addTask(enterTitle,enterDescription,enterPriority,date)
+    navigate('/');
     resetTitle()
     resetDescription()
     resetPriority()
@@ -126,8 +127,8 @@ export default function AddTaskForm() {
             value={enterPriority}
             className={`${validClassPriority} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}>
     <option selected>Choose a priority</option>
-    <option value="0">urgent</option>
-    <option value="1">Not urgent</option>
+    <option value="urgent">urgent</option>
+    <option value="non urgent">Not urgent</option>
 
    
           </select>
@@ -144,7 +145,7 @@ export default function AddTaskForm() {
           </div>
         </div>
         <DialogFooter>
-          <Button disabled={!formIsValid} type="submit">Save changes</Button>
+          <Button disabled={!formIsValid} type="submit">{isSubmitting ? 'Submitting...' : 'Save'}</Button>
         </DialogFooter>
         </form>
       </DialogContent>

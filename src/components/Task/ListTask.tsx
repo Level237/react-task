@@ -1,26 +1,35 @@
 import React from 'react'
 import { CardTask } from '../ui/cardTask'
+import { TaskStore } from '../../store/TaskStore'
 
-export default function ListTask() {
+export const ListTask:React.FC<{ status:number}>=({
+    status
+ }) =>{
+
+    const tasks=TaskStore((state)=>state.tasks)
+    const taksFilter=tasks.filter((el)=>{
+        return el.status===status;
+    })
   return (
     <div className='flex flex-col gap-3'>
-        <CardTask bgTask='#1271ff41' 
-        title='Move down'
-        priority='urgent'
-        color="#1271ff" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status={0}
 
+        {taksFilter.map((el)=>{
+
+            return (
+                <CardTask 
+                key={el.id}
+                id={el.id}
+        title={el.title}
+        priority={el.priority}
+        content={el.description}
+        status={el.status}
+        date={el.date}
         />
+            )
+        })}
+        
       
-      <CardTask bgTask='#1271ff41' 
-        title='Move down'
-        priority='non urgent'
-        color="#1271ff" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status={1}
-
-        />
+     
     </div>
   )
 }

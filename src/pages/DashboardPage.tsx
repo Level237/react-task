@@ -1,21 +1,10 @@
-import React from 'react'
-import Sidebar from '../components/Sidebar'
-import NavBar from '../components/NavBar'
 import { Separator } from '../components/ui/separator'
 import ListBoard from '../components/ListBoard'
 import { Button } from '../components/ui/button'
-import { DotIcon, Filter, MoreHorizontal, Plus } from 'lucide-react'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card"
-import { CardTask } from '../components/ui/cardTask'
 import ButtonTask from '../components/ui/buttonTask'
-import ListTask from '../components/Task/ListTask'
+
+import { TaskStatus} from '../components/Task/TaskStatus'
+import { Filter } from 'lucide-react'
 export default function DashboardPage() {
   return (
     <>
@@ -46,63 +35,16 @@ export default function DashboardPage() {
       <div className="grid grid-cols-4 gap-4">
 
 <div>
-<Card className="">
-      <CardHeader>
-        <CardTitle>Todo List</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent >
-
-      <ListTask/>
-
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        
-      </CardFooter>
-    </Card>
+<TaskStatus title='Todo List' status={0} description='deploy your new project in one-click'/>
 </div>
 <div>
-<Card className="">
-      <CardHeader>
-        <CardTitle>In Progress</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent className='flex flex-col gap-3'>
-     
-        
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        
-      </CardFooter>
-    </Card>
+<TaskStatus title='In Progress' status={1} description='deploy your new project in one-click'/>
 </div>
 <div>
-<Card className="">
-      <CardHeader>
-        <CardTitle>In Review</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent>
-       
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        
-      </CardFooter>
-    </Card>
+<TaskStatus title='In Review' status={2} description='deploy your new project in one-click'/>
 </div>
 <div>
-<Card className="">
-      <CardHeader>
-        <CardTitle>Done</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        
-      </CardFooter>
-    </Card>
+<TaskStatus title='Done' status={3} description='deploy your new project in one-click'/>
 </div>
     
       </div>
