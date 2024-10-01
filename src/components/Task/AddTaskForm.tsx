@@ -12,10 +12,17 @@ import { Textarea } from "../ui/textarea"
 import { DatePickerDemo } from "../ui/date"
 import useForm from "../../hooks/use-form"
 import { convertDateToString } from "../../lib/convertDate"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { TaskStore } from "../../store/TaskStore"
 
 export default function AddTaskForm() {
 
+  const addTask=TaskStore((state)=>state.addTask)
+  const tasks=TaskStore((state)=>state.tasks)
+
+  useEffect(()=>{
+    console.log(tasks)
+  },[tasks])
   const [date,setDate]=useState("")
   const {
     value:enterTitle,
@@ -57,6 +64,7 @@ export default function AddTaskForm() {
     if(!titleIsvalid && !descriptionIsvalid  && !priorityIsvalid){
       return;
     }
+    addTask(enterTitle,enterDescription,enterPriority,date)
     resetTitle()
     resetDescription()
     resetPriority()

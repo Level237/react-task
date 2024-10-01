@@ -2,7 +2,7 @@ import { TaskType } from "./TaskType";
 
 export interface TaskInterface{
     tasks:TaskType[],
-    addTask:()=>void,
+    addTask:(title:string,description:string,priority:string,date:string)=>void,
     updateTask:()=>void,
     deleteTask:()=>void
 }
