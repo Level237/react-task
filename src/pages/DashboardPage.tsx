@@ -15,6 +15,7 @@ import {
 } from "../components/ui/card"
 import { CardTask } from '../components/ui/cardTask'
 import ButtonTask from '../components/ui/buttonTask'
+import ListTask from '../components/Task/ListTask'
 export default function DashboardPage() {
   return (
     <>
@@ -50,23 +51,9 @@ export default function DashboardPage() {
         <CardTitle>Todo List</CardTitle>
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
-      <CardContent className='flex flex-col gap-3'>
+      <CardContent >
 
-        <CardTask bgTask='#1271ff41' 
-        title='Move down'
-        color="#1271ff" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status='urgent'
-
-        />
-      
-      <CardTask bgTask='#1271ff41' 
-        title='Move down'
-        color="#1271ff" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status='urgent'
-
-        />
+      <ListTask/>
 
       </CardContent>
       <CardFooter className="flex justify-between">
@@ -81,20 +68,7 @@ export default function DashboardPage() {
         <CardDescription>Deploy your new project in one-click.</CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col gap-3'>
-      <CardTask bgTask='#d7790660' 
-        title='Move down'
-        color="#d77906" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status='urgent'
-
-        />
-        <CardTask bgTask='#11111179' 
-        title='Move down'
-        color="#d77906" 
-        content='Manage men sevent game,let me down,let me see you please'
-        status='urgent'
-
-        />
+     
         
       </CardContent>
       <CardFooter className="flex justify-between">
