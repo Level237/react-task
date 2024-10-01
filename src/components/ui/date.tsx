@@ -1,6 +1,4 @@
-"use client"
 
-import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
@@ -12,10 +10,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./popover"
+import React, { useEffect, useState } from "react"
 
-export function DatePickerDemo() {
-  const [date, setDate] = React.useState<Date>()
+export const DatePickerDemo:React.FC<{ getDate:(date:any)=>void }>=({
+  getDate
+}) =>{
+  const [date, setDate] = useState<Date>()
 
+  useEffect(()=>{
+    getDate(date)
+  },[date])
   return (
     <Popover>
       <PopoverTrigger asChild>

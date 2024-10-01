@@ -4,24 +4,19 @@ import {
     DialogHeader,
     DialogTitle,
   } from "../ui/dialog"
-  import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-  } from "../ui/select"
+
   import { Input } from "../ui/input"
   import { Label } from "../ui/label"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
 import { DatePickerDemo } from "../ui/date"
 import useForm from "../../hooks/use-form"
+import { convertDateToString } from "../../lib/convertDate"
+import { useState } from "react"
 
 export default function AddTaskForm() {
 
+  const [date,setDate]=useState("")
   const {
     value:enterTitle,
     hasError:titleError,
@@ -48,6 +43,14 @@ export default function AddTaskForm() {
     reset:resetPriority,
     valueIsValid:priorityIsvalid
   }=useForm((value:any)=>value.trim()!=="")
+
+
+  const getDate=(date:any)=>{
+    const dateConvert=convertDateToString(date)
+
+    setDate(dateConvert)
+  }
+
 
   const submitFormHandler=(event:any)=>{
     event.preventDefault()
@@ -126,14 +129,14 @@ export default function AddTaskForm() {
                     <Label htmlFor="name" className="">
               Select a date
             </Label>
-                        <DatePickerDemo/>
+                        <DatePickerDemo getDate={getDate}/>
                     </div>
             </div>
            
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button disabled={!formIsValid} type="submit">Save changes</Button>
         </DialogFooter>
         </form>
       </DialogContent>
