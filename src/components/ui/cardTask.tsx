@@ -25,8 +25,9 @@ export const  CardTask:React.FC<{ id:string,title:string,description:string,colu
       onDragStart={(e)=>handleDragStart(e,{id,title,description,column,priority,date,isComplete})}
       className={`w-full flex flex-col cursor-grab active:cursor-grabbing  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
         <div className='flex mb-3 items-center justify-between'>
-            <div className={`px-2 py-1 border rounded-lg  ${priority ==="urgent" ? 'bg-[#d30d0dc7]' : 'bg-[#3620ff93]'}`}>
-                <h2 className='text-xs text-white'>{priority}</h2>
+            <div className={`px-2 py-1 border rounded-lg  ${priority ==="urgent" ? 'bg-[#0dd338c7]' : 'bg-[#ff2020d3]'}`}>
+              {column==="complete" ? <h2 className='text-xs text-white'>complete</h2>  : <h2 className='text-xs text-black'>{priority}</h2>}
+                
                 
             </div>
             <div>

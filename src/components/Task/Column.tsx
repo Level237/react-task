@@ -3,7 +3,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
   } from "../ui/card"
@@ -17,7 +16,7 @@ import { TaskStore } from "../../store/TaskStore";
 export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[],
 setCards:(tasks:TaskType[])=>void
 }>=({
-   title,description,status,column,tasks,setCards
+   title,description,column,tasks
 })=>{
     const [active,setActive]=useState(false)
 
@@ -75,6 +74,8 @@ setCards:(tasks:TaskType[])=>void
       setActive(false)
       clearHighlights()
     }
+
+
     const handleDragEnd=(e:any)=>{
       
       setActive(false)
@@ -113,7 +114,11 @@ setCards:(tasks:TaskType[])=>void
           setCard(copy)
       }
     }
+
+
     const filterTasks=tasks.filter((c)=>c.column===column);
+
+
     return (
         <Card 
         onDrop={handleDragEnd}
