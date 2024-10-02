@@ -13,6 +13,7 @@ import { TaskType } from "../../types/TaskType";
 import { DropIndicator } from "../DropIndicator";
 import { TaskStore } from "../../store/TaskStore";
 import { setTaskApi } from '../../api/Tasks/updateTaskApi';
+import { syncWithFirebase } from "../../api/syncWithLocal";
 
 
 export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[],
@@ -103,6 +104,7 @@ setCards:(tasks:TaskType[])=>void
 
         if(moveToBack){
           copy.push(cardToTransfert)
+          //syncWithFirebase()
           setTaskApi(cardToTransfert.id,cardToTransfert)
         }else{
           const insertAtIndex=copy.findIndex((el)=>el.id===before)

@@ -1,10 +1,12 @@
 import { create } from "zustand";
 import { TaskInterface } from "../types/TaskInterface";
-import { TaskType } from "../types/TaskType";
+import { TaskType } from '../types/TaskType';
+import { syncWithFirebase } from "../api/syncWithLocal";
 
-
+const taskSync : any=syncWithFirebase();
 export const TaskStore=create<TaskInterface>((set)=>({
-    tasks:JSON.parse(localStorage.getItem('tasks') || '[]') as TaskType[],
+  
+    tasks:JSON.parse(localStorage.getItem('tasks')  || '[]') as TaskType[],
     addTask:(id:string,title:string,description:string,priority:string,date:string)=>{
         set((state) => {
           
@@ -35,7 +37,7 @@ export const TaskStore=create<TaskInterface>((set)=>({
         //const taskIndex=state.tasks.findIndex(obj=>obj.id===id)
         //state.tasks[taskIndex].status=status;
         state.tasks=[...newTasks]
-
+        console.log(syncWithFirebase())
         localStorage.setItem('tasks',JSON.stringify(newTasks))
         console.log(newTasks)
         return {tasks:state.tasks}
