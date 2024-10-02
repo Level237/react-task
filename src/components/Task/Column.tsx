@@ -13,8 +13,10 @@ import { TaskType } from "../../types/TaskType";
 import { DropIndicator } from "../DropIndicator";
 
 
-export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[]}>=({
-   title,description,status,column,tasks
+export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[],
+setCards:(tasks:TaskType[])=>void
+}>=({
+   title,description,status,column,tasks,setCards
 })=>{
     const [active,setActive]=useState(false)
 
@@ -26,16 +28,14 @@ export const Column:React.FC<{title:string,description:string,status:number,colu
         <CardDescription>{description}</CardDescription>
         <Separator className='mr-3'  />
       </CardHeader>
-      <CardContent className='flex flex-col gap-3'>
+      <CardContent className='flex flex-col'>
      <div className={`h-full w-full transition-colors ${!active ? "bg-teal-200/50" : 'bg-teal-200/0'}`}>
 
      </div>
         <ListTask tasks={filterTasks}/>
         <DropIndicator beforeId="-1" status={status}/>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        
-      </CardFooter>
+     
     </Card>
     )
 }

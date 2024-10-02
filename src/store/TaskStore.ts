@@ -26,6 +26,16 @@ export const TaskStore=create<TaskInterface>((set)=>({
     updateTask:()=>{
 
     },
+    setCards:(newTasks:TaskType[])=>{
+      set((state)=>{
+        //const taskIndex=state.tasks.findIndex(obj=>obj.id===id)
+        //state.tasks[taskIndex].status=status;
+        newTasks=[...state.tasks]
+
+        localStorage.setItem('tasks',JSON.stringify(newTasks))
+        return {tasks:newTasks}
+      })
+    },
     deleteTask:(id:string)=>{
       set((state) => {
         const newTasks= state.tasks.filter((todo) => todo.id !== id);

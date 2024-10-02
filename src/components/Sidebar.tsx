@@ -1,6 +1,9 @@
 import React from 'react'
+import { BunBarrel } from './BunBarrel'
+import { TaskStore } from '../store/TaskStore'
 
 export default function Sidebar() {
+   const setCards=TaskStore((state)=>state.setCards)
   return (
     <>
       
@@ -69,6 +72,9 @@ export default function Sidebar() {
             </a>
          </li>
       </ul>
+      <div>
+         <BunBarrel setCards={setCards}/>
+      </div>
    </div>
 
 

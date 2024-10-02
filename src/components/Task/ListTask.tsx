@@ -8,7 +8,7 @@ export const ListTask:React.FC<{ tasks:TaskType[]}>=({
  }) =>{
 
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-1'>
 
         {tasks.map((el)=>{
 
