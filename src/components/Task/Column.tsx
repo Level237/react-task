@@ -12,6 +12,7 @@ import { Separator } from "../ui/separator";
 import { TaskType } from "../../types/TaskType";
 import { DropIndicator } from "../DropIndicator";
 import { TaskStore } from "../../store/TaskStore";
+import { setTaskApi } from '../../api/Tasks/updateTaskApi';
 
 
 export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[],
@@ -102,9 +103,10 @@ setCards:(tasks:TaskType[])=>void
 
         if(moveToBack){
           copy.push(cardToTransfert)
+          setTaskApi(cardToTransfert.id,cardToTransfert)
         }else{
           const insertAtIndex=copy.findIndex((el)=>el.id===before)
-
+         
           if(insertAtIndex===undefined) return;
 
           copy.splice(insertAtIndex,0,cardToTransfert)
