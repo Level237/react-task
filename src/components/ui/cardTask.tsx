@@ -7,10 +7,15 @@ export const  CardTask:React.FC<{ id:string,title:string,content:string,status:n
    id,title,content,status,priority,date
 }) =>{
 
+  const handleDrop=()=>{
+
+  }
   const deleteTask=TaskStore((state)=>state.deleteTask)
   return (
     <>
-      <div className={`w-full flex flex-col  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
+      <div
+      onDrop={handleDrop}
+      className={`w-full flex flex-col  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
         <div className='flex mb-3 items-center justify-between'>
             <div className={`px-2 py-1 border rounded-lg  ${priority ==="urgent" ? 'bg-[#d30d0dc7]' : 'bg-[#3620ff93]'}`}>
                 <h2 className='text-xs text-white'>{priority}</h2>

@@ -11,12 +11,12 @@ import { ListTask } from "./ListTask";
 import { Separator } from "../ui/separator";
 
 
-export const TaskStatus:React.FC<{title:string,description:string,status:number}>=({
-   title,description,status
+export const Column:React.FC<{title:string,description:string,status:number,column:string}>=({
+   title,description,status,column
 })=>{
 
     return (
-        <Card className="">
+        <Card className="shrink-0">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

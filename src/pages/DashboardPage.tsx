@@ -2,10 +2,9 @@ import { Separator } from '../components/ui/separator'
 import ListBoard from '../components/ListBoard'
 import { Button } from '../components/ui/button'
 import ButtonTask from '../components/ui/buttonTask'
-
-import { TaskStatus} from '../components/Task/TaskStatus'
 import { Filter } from 'lucide-react'
-export default function DashboardPage() {
+import Board from '../components/Task/Board'
+export default function DashColumnPage() {
   return (
     <>
     <section>
@@ -21,7 +20,7 @@ export default function DashboardPage() {
             </div>
            
            <div className="flex items-center flex-1 flex-row justify-between">
-            <h2 className='text-black text-lg font-bold'>Board</h2>
+            <h2 className='text-black text-lg font-bold'>Column</h2>
             <ListBoard/>
            </div>
             <div className='flex gap-2 items-center w-64'>
@@ -32,22 +31,7 @@ export default function DashboardPage() {
          </div>
     
     
-      <div className="grid grid-cols-4 gap-4">
-
-<div>
-<TaskStatus title='Todo List' status={0} description='deploy your new project in one-click'/>
-</div>
-<div>
-<TaskStatus title='In Progress' status={1} description='deploy your new project in one-click'/>
-</div>
-<div>
-<TaskStatus title='In Review' status={2} description='deploy your new project in one-click'/>
-</div>
-<div>
-<TaskStatus title='Done' status={3} description='deploy your new project in one-click'/>
-</div>
-    
-      </div>
+      <Board/>
    </div>
     </section>
        
