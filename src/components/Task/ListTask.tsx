@@ -1,19 +1,16 @@
 import React from 'react'
 import { CardTask } from '../ui/cardTask'
 import { TaskStore } from '../../store/TaskStore'
+import { TaskType } from '../../types/TaskType'
 
-export const ListTask:React.FC<{ status:number}>=({
-    status
+export const ListTask:React.FC<{ tasks:TaskType[]}>=({
+    tasks
  }) =>{
 
-    const tasks=TaskStore((state)=>state.tasks)
-    const taksFilter=tasks.filter((el)=>{
-        return el.status===status;
-    })
   return (
     <div className='flex flex-col gap-3'>
 
-        {taksFilter.map((el)=>{
+        {tasks.map((el)=>{
 
             return (
                 <CardTask 

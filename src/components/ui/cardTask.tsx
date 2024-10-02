@@ -2,6 +2,8 @@ import { Clock, Edit, MoreHorizontal, Trash } from 'lucide-react'
 import React from 'react'
 import { TaskStore } from '../../store/TaskStore'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
+import { DropIndicator } from '../DropIndicator'
+
 
 export const  CardTask:React.FC<{ id:string,title:string,content:string,status:number,priority:string,date:string }>=({
    id,title,content,status,priority,date
@@ -13,9 +15,10 @@ export const  CardTask:React.FC<{ id:string,title:string,content:string,status:n
   const deleteTask=TaskStore((state)=>state.deleteTask)
   return (
     <>
+    <DropIndicator beforeId={id} status={status}/>
       <div
-      onDrop={handleDrop}
-      className={`w-full flex flex-col  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
+      draggable='true'
+      className={`w-full flex flex-col cursor-grab active:cursor-grabbing  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
         <div className='flex mb-3 items-center justify-between'>
             <div className={`px-2 py-1 border rounded-lg  ${priority ==="urgent" ? 'bg-[#d30d0dc7]' : 'bg-[#3620ff93]'}`}>
                 <h2 className='text-xs text-white'>{priority}</h2>

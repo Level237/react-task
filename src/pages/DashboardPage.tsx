@@ -20,7 +20,7 @@ export default function DashColumnPage() {
             </div>
            
            <div className="flex items-center flex-1 flex-row justify-between">
-            <h2 className='text-black text-lg font-bold'>Column</h2>
+            <h2 className='text-black text-lg font-bold'>Board</h2>
             <ListBoard/>
            </div>
             <div className='flex gap-2 items-center w-64'>
