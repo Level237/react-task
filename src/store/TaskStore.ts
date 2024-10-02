@@ -7,11 +7,11 @@ import { addTask } from "../api/Tasks/AddTaskApi";
 
 export const TaskStore=create<TaskInterface>((set)=>({
     tasks:JSON.parse(localStorage.getItem('tasks') || '[]') as TaskType[],
-    addTask:(title:string,description:string,priority:string,date:string)=>{
+    addTask:(id:string,title:string,description:string,priority:string,date:string)=>{
         set((state) => {
           
           const taskObject={
-            id:uuidv4(),
+            id:id,
             title:title,
             description:description,
             priority:priority,
@@ -21,7 +21,7 @@ export const TaskStore=create<TaskInterface>((set)=>({
           }
             const newTasks=[...state.tasks,taskObject]
             
-            const addTaskApi=addTask(taskObject)
+            
 
             localStorage.setItem('tasks',JSON.stringify(newTasks))
             return {tasks:newTasks}

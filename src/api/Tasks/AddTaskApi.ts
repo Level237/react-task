@@ -3,14 +3,14 @@ import { getUrl } from "../getUrlApi"
 import axios from "axios"
 
 
-export const addTask=async(task:TaskType)=>{
+export const addTaskApi=async(task:any)=>{
     try {
         const url=getUrl();
         const response=await axios.post(`${url}/tasks.json`,task)
 
-        console.log(response.data)
+        //console.log(response.data)
 
-        return response;
+        return response.data.name;
     } catch (error) {
         
     }

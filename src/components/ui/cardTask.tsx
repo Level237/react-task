@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { DropIndicator } from '../DropIndicator'
 import { TaskType } from '../../types/TaskType'
 import {motion} from "framer-motion"
+import { deleteTaskApi } from '../../api/Tasks/DeleteTaskApi'
 
 export const  CardTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,date:string,handleDragStart:(e:any,task:TaskType)=>void,isComplete:boolean }>=({
    id,title,description,column,priority,date,handleDragStart,isComplete
@@ -15,6 +16,12 @@ export const  CardTask:React.FC<{ id:string,title:string,description:string,colu
 
   }
   const deleteTask=TaskStore((state)=>state.deleteTask)
+
+  const deleteHandler=async(id:any)=>{
+    
+    await deleteTaskApi(id)
+    deleteTask(id)
+  }
   return (
     <>
     <DropIndicator beforeId={id} column={column}/>
@@ -37,7 +44,7 @@ export const  CardTask:React.FC<{ id:string,title:string,description:string,colu
       </PopoverTrigger>
       <PopoverContent className="w-24">
         <div className='flex gap-3 flex-col'>
-          <div onClick={()=>deleteTask(id)} className='flex cursor-pointer items-center gap-3 justify-center'>
+          <div onClick={()=>deleteHandler(id)} className='flex cursor-pointer items-center gap-3 justify-center'>
             <Trash className='w-4 h-4 text-[#000]'/>
            <h2 className='text-xs'> Delete</h2>
           </div>
