@@ -11,6 +11,7 @@ import { ListTask } from "./ListTask";
 import { Separator } from "../ui/separator";
 import { TaskType } from "../../types/TaskType";
 import { DropIndicator } from "../DropIndicator";
+import { TaskStore } from "../../store/TaskStore";
 
 
 export const Column:React.FC<{title:string,description:string,status:number,column:string,tasks:TaskType[],
@@ -20,7 +21,8 @@ setCards:(tasks:TaskType[])=>void
 })=>{
     const [active,setActive]=useState(false)
 
-    const filterTasks=tasks.filter((c)=>c.column===column);
+    const setCard=TaskStore((state)=>state.setCards)
+  
 
     const getIndicators=()=>{
       return Array.from(document.querySelectorAll(`[data-column="${column}"]`))
@@ -77,7 +79,41 @@ setCards:(tasks:TaskType[])=>void
       
       setActive(false)
       clearHighlights()
+      const cardId=e.dataTransfer.getData("cardId")
+
+      const indicators=getIndicators()
+
+      const {element}=getNearestIndicator(e,indicators)
+
+      const before=element.dataset.before || "-1"
+
+      if(before !==cardId){
+        let copy=[...tasks];
+
+        let cardToTransfert=copy.find((c)=>c.id === cardId)
+
+        if(!cardToTransfert) return;
+
+        cardToTransfert={...cardToTransfert,column}
+
+        copy=copy.filter((c)=>c.id !==cardId);
+
+        const moveToBack=before==="-1"
+
+        if(moveToBack){
+          copy.push(cardToTransfert)
+        }else{
+          const insertAtIndex=copy.findIndex((el)=>el.id===before)
+
+          if(insertAtIndex===undefined) return;
+
+          copy.splice(insertAtIndex,0,cardToTransfert)
+        }
+        //console.log(copy)
+          setCard(copy)
+      }
     }
+    const filterTasks=tasks.filter((c)=>c.column===column);
     return (
         <Card 
         onDrop={handleDragEnd}

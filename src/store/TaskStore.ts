@@ -31,10 +31,11 @@ export const TaskStore=create<TaskInterface>((set)=>({
       set((state)=>{
         //const taskIndex=state.tasks.findIndex(obj=>obj.id===id)
         //state.tasks[taskIndex].status=status;
-        newTasks=[...state.tasks]
+        state.tasks=[...newTasks]
 
         localStorage.setItem('tasks',JSON.stringify(newTasks))
-        return {tasks:newTasks}
+        console.log(newTasks)
+        return {tasks:state.tasks}
       })
     },
     deleteTask:(id:string)=>{
