@@ -15,7 +15,8 @@ export const TaskStore=create<TaskInterface>((set)=>({
               description:description,
               priority:priority,
               date:date,
-              status:0
+              isComplete:false,
+              column:"todo"
             }]
             localStorage.setItem('tasks',JSON.stringify(newTasks))
             return {tasks:newTasks}

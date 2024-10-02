@@ -1,10 +1,10 @@
 import React from 'react'
 import { CardTask } from '../ui/cardTask'
 import { TaskStore } from '../../store/TaskStore'
-import { TaskType } from '../../types/TaskType'
+import { TaskType } from '../../types/TaskType';
 
-export const ListTask:React.FC<{ tasks:TaskType[]}>=({
-    tasks
+export const ListTask:React.FC<{ tasks:TaskType[],handleDragStart:(e:any,task:TaskType)=>void}>=({
+    tasks,handleDragStart
  }) =>{
 
   return (
@@ -13,13 +13,15 @@ export const ListTask:React.FC<{ tasks:TaskType[]}>=({
         {tasks.map((el)=>{
 
             return (
-                <CardTask 
+                <CardTask
+                handleDragStart={handleDragStart}
+                isComplete={el.isComplete}
                 key={el.id}
                 id={el.id}
         title={el.title}
         priority={el.priority}
-        content={el.description}
-        status={el.status}
+        description={el.description}
+        column={el.column}
         date={el.date}
         />
             )

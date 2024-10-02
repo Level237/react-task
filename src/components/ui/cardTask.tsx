@@ -3,21 +3,26 @@ import React from 'react'
 import { TaskStore } from '../../store/TaskStore'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { DropIndicator } from '../DropIndicator'
+import { TaskType } from '../../types/TaskType'
+import {motion} from "framer-motion"
 
-
-export const  CardTask:React.FC<{ id:string,title:string,content:string,status:number,priority:string,date:string }>=({
-   id,title,content,status,priority,date
+export const  CardTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,date:string,handleDragStart:(e:any,task:TaskType)=>void,isComplete:boolean }>=({
+   id,title,description,column,priority,date,handleDragStart,isComplete
 }) =>{
 
+  
   const handleDrop=()=>{
 
   }
   const deleteTask=TaskStore((state)=>state.deleteTask)
   return (
     <>
-    <DropIndicator beforeId={id} status={status}/>
-      <div
+    <DropIndicator beforeId={id} column={column}/>
+      <motion.div
+      layout
+      layoutId={id}
       draggable='true'
+      onDragStart={(e)=>handleDragStart(e,{id,title,description,column,priority,date,isComplete})}
       className={`w-full flex flex-col cursor-grab active:cursor-grabbing  rounded-md px-3 py-4 ${priority ==="urgent" ? 'bg-[#3eff0e7e]' : 'bg-[#ff09095d]'} `}>
         <div className='flex mb-3 items-center justify-between'>
             <div className={`px-2 py-1 border rounded-lg  ${priority ==="urgent" ? 'bg-[#d30d0dc7]' : 'bg-[#3620ff93]'}`}>
@@ -47,7 +52,7 @@ export const  CardTask:React.FC<{ id:string,title:string,content:string,status:n
         </div>
     <h2 className={`text-lg text-[#000] font-bold`}>{title}</h2>
     <div>
-        <span className={`text-[#000] line-clamp-3 mt-2 text-xs`}>{content}</span>
+        <span className={`text-[#000] line-clamp-3 mt-2 text-xs`}>{description}</span>
         </div>
         <div className='flex justify-end mt-3'>
         <div className={`px-2 py-2 flex items-center gap-2 rounded-lg border border-[#fff]  bg-transparent`}>
@@ -56,7 +61,7 @@ export const  CardTask:React.FC<{ id:string,title:string,content:string,status:n
                 
             </div>
         </div>
-        </div>
+        </motion.div>
     </>
   )
 }

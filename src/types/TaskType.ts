@@ -4,5 +4,6 @@ export type TaskType={
     description:string,
     priority:string,
     date:string,
-    status:number
+    isComplete:boolean,
+    column:string
 }
