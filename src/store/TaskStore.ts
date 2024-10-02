@@ -5,30 +5,32 @@ import {v4 as uuidv4} from 'uuid';
 
 
 export const TaskStore=create<TaskInterface>((set)=>({
-    tasks:[],
+    tasks:JSON.parse(localStorage.getItem('tasks') || '[]') as TaskType[],
     addTask:(title:string,description:string,priority:string,date:string)=>{
-        set((state) => ({
-            tasks: [
-              ...state.tasks,
-              {
-                id: uuidv4(),
-                description,
-                priority,
-                title,
-                date,
-                status:0,
-              }as TaskType,
-            ],
-           
-          }));
+        set((state) => {
           
+            const newTasks=[...state.tasks,{
+              id:uuidv4(),
+              title:title,
+              description:description,
+              priority:priority,
+              date:date,
+              status:0
+            }]
+            localStorage.setItem('tasks',JSON.stringify(newTasks))
+            return {tasks:newTasks}
+            
+          });
+        
     },
     updateTask:()=>{
 
     },
     deleteTask:(id:string)=>{
-      set((state) => ({
-        tasks: state.tasks.filter((todo) => todo.id !== id),
-      }));
+      set((state) => {
+        const newTasks= state.tasks.filter((todo) => todo.id !== id);
+          localStorage.setItem('tasks',JSON.stringify(newTasks))
+          return {tasks:newTasks}
+      });
     }
 }))
