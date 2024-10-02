@@ -3,6 +3,7 @@ import { TaskType } from '../types/TaskType'
 import { Card, CardHeader } from './ui/card'
 import { FireExtinguisher, Trash } from 'lucide-react'
 import { TaskStore } from '../store/TaskStore'
+import { deleteTaskApi } from '../api/Tasks/DeleteTaskApi'
 
 export const BunBarrel:React.FC<{setCards:(tasks:TaskType[])=>void}>=({
     setCard
@@ -18,10 +19,11 @@ export const BunBarrel:React.FC<{setCards:(tasks:TaskType[])=>void}>=({
   const handleDragLeave=()=>{
     setActive(false)
   }
-  const handleDragEnd=(e:any)=>{
+  const handleDragEnd=async(e:any)=>{
     const cardId=e.dataTransfer.getData('cardId');
     setActive(false)
     deleteTask(cardId)
+    await deleteTaskApi(cardId)
   }
   return (
     <>

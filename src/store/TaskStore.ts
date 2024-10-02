@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import { TaskInterface } from "../types/TaskInterface";
 import { TaskType } from "../types/TaskType";
-import {v4 as uuidv4} from 'uuid';
-import { addTask } from "../api/Tasks/AddTaskApi";
 
 
 export const TaskStore=create<TaskInterface>((set)=>({

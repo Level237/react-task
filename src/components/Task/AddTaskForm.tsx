@@ -23,7 +23,7 @@ const addTask=TaskStore((state)=>state.addTask)
 const navigate = useNavigate();
 const navigation=useNavigation();
 const isSubmitting=navigation.state==="submitting"
-
+const [error,setError]=useState("")
 const [date,setDate]=useState("")
 const {
   value:enterTitle,
@@ -65,8 +65,22 @@ const submitFormHandler=async(event:any)=>{
   if(!titleIsvalid && !descriptionIsvalid  && !priorityIsvalid){
     return;
   }
-  const id=await addTaskApi({title:enterTitle,description:enterDescription,priority:enterPriority,date:date});
-  addTask(id,enterTitle,enterDescription,enterPriority,date)
+
+  try {
+    const id=await addTaskApi({title:enterTitle,description:enterDescription,priority:enterPriority,date:date,isComplete:false,
+      column:"todo"});
+      if(id){
+        setError("")
+        addTask(id,enterTitle,enterDescription,enterPriority,date)
+        
+      }else{
+        setError("erreur verifier que vous etes connecter à internet");
+      }
+    
+  } catch (error:any) {
+    setError(error)
+  }
+  
   navigate('/');
   resetTitle()
   resetDescription()
@@ -92,6 +106,7 @@ return (
       <form onSubmit={submitFormHandler}>
       <div className="grid gap-4 py-4">
         <div className="flex flex-col gap-4">
+          {error && <p className="bg-red-500 text-white p-2 text-sm rounded-md">{error}</p>}
           <Label htmlFor="name" className="">
             Title
           </Label>
