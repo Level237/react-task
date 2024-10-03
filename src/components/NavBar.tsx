@@ -18,7 +18,7 @@ export default function NavBar() {
   <Search/>
   <Avatar style={{ background:"url('/profile.jpg')",backgroundPosition:"center",backgroundSize:"cover" }} className='cursor-pointer w-10 h-10 rounded-full'>
   <AvatarImage  />
- 
+  
 </Avatar>
  
   </div>

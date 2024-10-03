@@ -6,6 +6,9 @@ import { DropIndicator } from '../DropIndicator'
 import { TaskType } from '../../types/TaskType'
 import {motion} from "framer-motion"
 import { deleteTaskApi } from '../../api/Tasks/DeleteTaskApi'
+import { Dialog, DialogTrigger } from './dialog'
+import { EditTask } from '../Task/EditTask'
+
 
 export const  CardTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,date:string,handleDragStart:(e:any,task:TaskType)=>void,isComplete:boolean }>=({
    id,title,description,column,priority,date,handleDragStart,isComplete
@@ -50,7 +53,12 @@ export const  CardTask:React.FC<{ id:string,title:string,description:string,colu
           </div>
           <div className='flex cursor-pointer items-center gap-3 justify-center'>
             <Edit className='w-4 h-4 text-[#000]'/>
-           <h2 className='text-xs'> Edit</h2>
+           <h2 className='text-xs'> <Dialog>
+      <DialogTrigger>
+      Edit
+      </DialogTrigger>
+      <EditTask id={id} title={title} description={description} column={column} priority={priority} dates={date}/>
+    </Dialog></h2>
           </div>
         </div>
       </PopoverContent>

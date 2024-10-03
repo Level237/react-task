@@ -1,24 +1,26 @@
 import {
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog"
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+  } from "../ui/dialog"
+  
+  import { Input } from "../ui/input"
+  import { Label } from "../ui/label"
+  import { Button } from "../ui/button"
+  import { Textarea } from "../ui/textarea"
+  import { DatePickerDemo } from "../ui/date"
+  import useForm from "../../hooks/use-form"
+  import { convertDateToString } from "../../lib/convertDate"
+  import { useState } from "react"
+  import { TaskStore } from "../../store/TaskStore"
+  import { addTaskApi } from "../../api/Tasks/AddTaskApi"
 
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import { Button } from "../ui/button"
-import { Textarea } from "../ui/textarea"
-import { DatePickerDemo } from "../ui/date"
-import useForm from "../../hooks/use-form"
-import { convertDateToString } from "../../lib/convertDate"
-import { useState } from "react"
-import { TaskStore } from "../../store/TaskStore"
-import { addTaskApi } from "../../api/Tasks/AddTaskApi"
+  export const  EditTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,dates:string }>=({
+    id,title,description,column,priority,dates
+ }) =>{
 
-export default function AddTaskForm() {
-
-const addTask=TaskStore((state)=>state.addTask)
+    const addTask=TaskStore((state)=>state.addTask)
 const [error,setError]=useState("")
 const [isSubmitting,setIsSubmitting]=useState(false)
 const [date,setDate]=useState("")
@@ -49,54 +51,52 @@ const {
   valueIsValid:priorityIsvalid
 }=useForm((value:any)=>value.trim()!=="")
 
-
 const getDate=(date:any)=>{
-  const dateConvert=convertDateToString(date)
-
-  setDate(dateConvert)
-}
-
-
-const submitFormHandler=async(event:any)=>{
-  event.preventDefault()
-  if(!titleIsvalid && !descriptionIsvalid  && !priorityIsvalid){
-    return;
+    const dateConvert=convertDateToString(date)
+  
+    setDate(dateConvert)
   }
-  setIsSubmitting(true)
-  try {
-    const id=await addTaskApi({title:enterTitle,description:enterDescription,priority:enterPriority,date:date,isComplete:false,
-      column:"todo"});
-      if(id){
-        setError("")
-        addTask(id,enterTitle,enterDescription,enterPriority,date)
-        setIsSubmitting(false)
-      }else{
-        setError("erreur verifier que vous etes connecter à internet");
-      }
-    
-  } catch (error:any) {
-    setError(error)
+  
+  
+  const submitFormHandler=async(event:any)=>{
+    event.preventDefault()
+    if(!titleIsvalid && !descriptionIsvalid  && !priorityIsvalid){
+      return;
+    }
+    setIsSubmitting(true)
+    try {
+      const id=await addTaskApi({title:enterTitle,description:enterDescription,priority:enterPriority,date:date,isComplete:false,
+        column:"todo"});
+        if(id){
+          setError("")
+          addTask(id,enterTitle,enterDescription,enterPriority,date)
+          setIsSubmitting(false)
+        }else{
+          setError("erreur verifier que vous etes connecter à internet");
+        }
+      
+    } catch (error:any) {
+      setError(error)
+    }
+  
+    resetTitle()
+    resetDescription()
+    resetPriority()
   }
-
-  resetTitle()
-  resetDescription()
-  resetPriority()
-}
-
-let formIsValid=false;
-
-if(titleIsvalid && descriptionIsvalid && priorityIsvalid){
-  formIsValid=true;
-}
-
-const validClassTitle=titleError ? "border border-red-400" : ""
-const validClassDescription=descriptionError ? "border border-red-400" : ""
-const validClassPriority=priorityError ? "border border-red-400" : ""
-return (
-  <>
-   <DialogContent className="sm:max-w-[480px]">
+  
+  let formIsValid=false;
+  
+  if(titleIsvalid && descriptionIsvalid && priorityIsvalid){
+    formIsValid=true;
+  }
+  
+  const validClassTitle=titleError ? "border border-red-400" : ""
+  const validClassDescription=descriptionError ? "border border-red-400" : ""
+  const validClassPriority=priorityError ? "border border-red-400" : ""
+  return (
+    <DialogContent className="sm:max-w-[480px]">
       <DialogHeader>
-        <DialogTitle>Add Task</DialogTitle>
+        <DialogTitle>Edit Task </DialogTitle>
        
       </DialogHeader>
 
@@ -112,7 +112,7 @@ return (
             id="name"
             onBlur={blurTitleHandler} 
             onChange={enteredTitleHandler} 
-            value={enterTitle} 
+            value={title} 
             placeholder="Enter your title"
             className={`col-span-3 ${validClassTitle}`}
           />
@@ -160,11 +160,9 @@ return (
         </div>
       </div>
       <DialogFooter>
-        <Button disabled={!formIsValid} type="submit">{isSubmitting ? 'Submitting...' : 'Save'}</Button>
+        <Button disabled={!formIsValid} type="submit">{isSubmitting ? 'Submitting...' : 'Update'}</Button>
       </DialogFooter>
       </form>
     </DialogContent>
-  
-  </>
-)
+  )
 }
