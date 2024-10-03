@@ -4,10 +4,19 @@ import { Button } from '../components/ui/button'
 import ButtonTask from '../components/ui/buttonTask'
 import { Filter } from 'lucide-react'
 import Board from '../components/Task/Board'
+import { SearchStore } from '../store/SearchStore'
+import React from 'react'
+
+import { TaskStore } from '../store/TaskStore'
+import { ResultSearch } from '../components/Task/ResultSearch'
 export default function DashColumnPage() {
-  return (
-    <>
-    <section>
+
+  const search=SearchStore((set)=>set.search)
+  let ContentPage:React.ReactNode
+
+
+  if(search.length===0){
+    ContentPage= <section>
     <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
       
          <div className="flex gap-3 mb-4 px-3 py-2 border border-[#00000018] justify-between rounded-xl bg-gray-50 dark:bg-gray-800">
@@ -34,9 +43,10 @@ export default function DashColumnPage() {
       <Board/>
    </div>
     </section>
-       
-            
-        
-    </>
-  )
+  }else{
+    ContentPage=<ResultSearch/>
+  }
+  
+
+  return ContentPage;
 }

@@ -7,6 +7,7 @@ import { syncWithFirebase } from "../api/syncWithLocal";
 export const TaskStore=create<TaskInterface>((set)=>({
   
     tasks:JSON.parse(localStorage.getItem('tasks')  || '[]') as TaskType[],
+    tasksResult:[],
     addTask:(id:string,title:string,description:string,priority:string,date:string)=>{
         set((state) => {
           
@@ -48,6 +49,14 @@ export const TaskStore=create<TaskInterface>((set)=>({
         const newTasks= state.tasks.filter((todo) => todo.id !== id);
           localStorage.setItem('tasks',JSON.stringify(newTasks))
           return {tasks:newTasks}
+      });
+    },
+    searchTask:(query:string)=>{
+      set((state) => {
+        const newTasks= state.tasks.filter((todo) => todo.title == query);
+          //localStorage.setItem('tasks',JSON.stringify(newTasks))
+          console.log(newTasks)
+          return {tasksResult:newTasks}
       });
     }
 }))
