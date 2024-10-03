@@ -3,7 +3,7 @@ import { TaskInterface } from "../types/TaskInterface";
 import { TaskType } from '../types/TaskType';
 import { syncWithFirebase } from "../api/syncWithLocal";
 
-const taskSync : any=syncWithFirebase();
+
 export const TaskStore=create<TaskInterface>((set)=>({
   
     tasks:JSON.parse(localStorage.getItem('tasks')  || '[]') as TaskType[],
