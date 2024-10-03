@@ -9,47 +9,24 @@ import {
   import { Label } from "../ui/label"
   import { Button } from "../ui/button"
   import { Textarea } from "../ui/textarea"
-  import { DatePickerDemo } from "../ui/date"
-  import useForm from "../../hooks/use-form"
+
   import { convertDateToString } from "../../lib/convertDate"
   import { useState } from "react"
   import { TaskStore } from "../../store/TaskStore"
-  import { addTaskApi } from "../../api/Tasks/AddTaskApi"
+import { setTaskApi } from "../../api/Tasks/updateTaskApi"
+import { DatePickerDemo } from "../ui/date"
 
-  export const  EditTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,dates:string }>=({
-    id,title,description,column,priority,dates
+  export const  EditTask:React.FC<{ id:string,title:string,description:string,column:string,priority:string,dates:string,isComplete:boolean }>=({
+    id,title,description,column,priority,dates,isComplete
  }) =>{
 
-    const addTask=TaskStore((state)=>state.addTask)
+    const updateTask=TaskStore((state)=>state.updateTask)
 const [error,setError]=useState("")
 const [isSubmitting,setIsSubmitting]=useState(false)
 const [date,setDate]=useState("")
-const {
-  value:enterTitle,
-  hasError:titleError,
-  valueHandler:enteredTitleHandler,
-  blurHandler:blurTitleHandler,
-  reset:resetTitle,
-  valueIsValid:titleIsvalid
-}=useForm((value:any)=>value.trim()!=="")
-
-const {
-  value:enterDescription,
-  hasError:descriptionError,
-  valueHandler:enteredDescriptionHandler,
-  blurHandler:blurDescriptionHandler,
-  reset:resetDescription,
-  valueIsValid:descriptionIsvalid
-}=useForm((value:any)=>value.trim()!=="")
-
-const {
-  value:enterPriority,
-  hasError:priorityError,
-  valueHandler:enteredPriorityHandler,
-  blurHandler:blurPriorityHandler,
-  reset:resetPriority,
-  valueIsValid:priorityIsvalid
-}=useForm((value:any)=>value.trim()!=="")
+const [titleForm,setTitleForm]=useState(title)
+const [descriptionForm,setDescriptionForm]=useState(description)
+const [priorityForm,setPriorityForm]=useState(priority)
 
 const getDate=(date:any)=>{
     const dateConvert=convertDateToString(date)
@@ -60,16 +37,15 @@ const getDate=(date:any)=>{
   
   const submitFormHandler=async(event:any)=>{
     event.preventDefault()
-    if(!titleIsvalid && !descriptionIsvalid  && !priorityIsvalid){
+    if(titleForm.length===0 && descriptionForm.length===0  && priorityForm.length===0){
       return;
     }
     setIsSubmitting(true)
     try {
-      const id=await addTaskApi({title:enterTitle,description:enterDescription,priority:enterPriority,date:date,isComplete:false,
-        column:"todo"});
-        if(id){
+      const response=await setTaskApi(id,{title:titleForm,description:descriptionForm,priority:priorityForm,date:date});
+        if(response.data){
           setError("")
-          addTask(id,enterTitle,enterDescription,enterPriority,date)
+          updateTask(id,{id:id,title:titleForm,description:descriptionForm,priority:priorityForm,date:dates,column:column,isComplete:isComplete})
           setIsSubmitting(false)
         }else{
           setError("erreur verifier que vous etes connecter à internet");
@@ -79,20 +55,10 @@ const getDate=(date:any)=>{
       setError(error)
     }
   
-    resetTitle()
-    resetDescription()
-    resetPriority()
+
   }
   
-  let formIsValid=false;
-  
-  if(titleIsvalid && descriptionIsvalid && priorityIsvalid){
-    formIsValid=true;
-  }
-  
-  const validClassTitle=titleError ? "border border-red-400" : ""
-  const validClassDescription=descriptionError ? "border border-red-400" : ""
-  const validClassPriority=priorityError ? "border border-red-400" : ""
+
   return (
     <DialogContent className="sm:max-w-[480px]">
       <DialogHeader>
@@ -110,25 +76,22 @@ const getDate=(date:any)=>{
           </Label>
           <Input
             id="name"
-            onBlur={blurTitleHandler} 
-            onChange={enteredTitleHandler} 
-            value={title} 
+            onChange={(e)=>setTitleForm(e.target.value)} 
+            value={titleForm}
             placeholder="Enter your title"
-            className={`col-span-3 ${validClassTitle}`}
+            className={`col-span-3`}
           />
-          {titleError && <p className="text-xs mt-[-10px] text-red-600">Ne peut pas etre vide</p>}
         </div>
        
         <div className="flex flex-col gap-4">
           <Label htmlFor="username" className="">
             Description
           </Label>
-          <Textarea className={`w-full ${validClassDescription}`} placeholder="Type your message here."
-          onBlur={blurDescriptionHandler} 
-          onChange={enteredDescriptionHandler} 
-          value={enterDescription} 
+          <Textarea className={`w-full `} placeholder="Type your message here."
+         
+          onChange={(e)=>setDescriptionForm(e.target.value)} 
+          value={descriptionForm} 
           />
-          {descriptionError && <p className="text-xs mt-[-10px] text-red-600">Ne peut pas etre vide</p>}
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex mt-3 gap-3 items-center justify-between">
@@ -137,17 +100,16 @@ const getDate=(date:any)=>{
             Priority
           </Label>
           <select 
-          onBlur={blurPriorityHandler} 
-          onChange={enteredPriorityHandler} 
-          value={enterPriority}
-          className={`${validClassPriority} bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}>
+          onChange={(e)=>setPriorityForm(e.target.value)}
+          value={priorityForm}
+          className={` bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}>
   <option selected>Choose a priority</option>
   <option value="urgent">urgent</option>
   <option value="non urgent">Not urgent</option>
 
  
         </select>
-        {priorityError && <p className="text-xs mt-[-10px] text-red-600">Ne peut pas etre vide</p>}
+
                   </div>
                   <div className="flex-1 flex flex-col gap-3">
                   <Label htmlFor="name" className="">
@@ -160,7 +122,7 @@ const getDate=(date:any)=>{
         </div>
       </div>
       <DialogFooter>
-        <Button disabled={!formIsValid} type="submit">{isSubmitting ? 'Submitting...' : 'Update'}</Button>
+        <Button  type="submit">{isSubmitting ? 'Submitting...' : 'Update'}</Button>
       </DialogFooter>
       </form>
     </DialogContent>

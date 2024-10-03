@@ -57,7 +57,7 @@ export const  CardTask:React.FC<{ id:string,title:string,description:string,colu
       <DialogTrigger>
       Edit
       </DialogTrigger>
-      <EditTask id={id} title={title} description={description} column={column} priority={priority} dates={date}/>
+      <EditTask id={id} title={title} isComplete={isComplete} description={description} column={column} priority={priority} dates={date}/>
     </Dialog></h2>
           </div>
         </div>

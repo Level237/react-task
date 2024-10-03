@@ -30,8 +30,14 @@ export const TaskStore=create<TaskInterface>((set)=>({
           });
         
     },
-    updateTask:()=>{
-
+    updateTask:(id:string,task:TaskType)=>{
+      set((state)=>{
+        const newTasks=state.tasks.filter((taskItem)=>taskItem.id !==id)
+        newTasks.push(task);
+        localStorage.setItem('tasks',JSON.stringify(newTasks))
+            return {tasks:newTasks}
+      })
+      
     },
     setCards:(newTasks:TaskType[])=>{
       set((state)=>{
